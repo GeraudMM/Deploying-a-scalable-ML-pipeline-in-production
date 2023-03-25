@@ -28,7 +28,7 @@ for this release the results are the following:
 
 - recall: 0.64
 
--fbeta: 0.67
+- fbeta: 0.67
 
 As we can see there is still room for improvement.
 
