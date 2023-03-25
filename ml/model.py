@@ -65,7 +65,7 @@ def inference(model, X):
 
     return model.predict(X)
 
-def compute_metric_on_slice_of_data(model, X, categorical_features=[], label = None, encoder=None, lb=None):
+def compute_metric_on_slice_of_data(model, input_data, categorical_features=[], label = None, encoder=None, lb=None):
     """ compute metric on slice of the data
     
     Args:
@@ -84,9 +84,9 @@ def compute_metric_on_slice_of_data(model, X, categorical_features=[], label = N
     metrics = []
 
     for feature in categorical_features:
-        unique_values = X[feature].unique()
+        unique_values = input_data[feature].unique()
         for value in unique_values:
-            X, y, encoder, lb = process_data(X.loc[X[feature]==value], categorical_features=categorical_features, label=label, encoder=encoder, lb=lb, training=False)
+            X, y, encoder, lb = process_data(input_data.loc[input_data[feature]==value], categorical_features=categorical_features, label=label, encoder=encoder, lb=lb, training=False)
             preds = inference(model, X)
             precision, recall, fbeta = compute_model_metrics(y, preds)
             metrics.append((feature, value, precision, recall, fbeta))
