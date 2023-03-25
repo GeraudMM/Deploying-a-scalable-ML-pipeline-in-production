@@ -1,5 +1,7 @@
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-
+import pandas as pd
+from ml.data import process_data
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -18,7 +20,10 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
 
-    pass
+    model = RandomForestClassifier(random_state=31416)
+    model.fit(X_train, y_train)
+
+    return model
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +62,35 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+
+    return model.predict(X)
+
+def compute_metric_on_slice_of_data(model, X: pd.DataFrame, categorical_features: list[str]=[], label: str =None, encoder=None, lb=None) -> pd.DataFrame:
+    """ compute metric on slice of the data
+    
+    Args:
+        X : Dataframe containing the features and label. Columns in `categorical_features`
+        categorical_features: List containing the names of the categorical features (default=[])
+        label : Name of the label column in `X`. If None, then an empty array will be returned for y (default=None)
+        training : bool
+            Indicator if training mode or inference/validation mode.
+        encoder (sklearn.preprocessing._encoders.OneHotEncoder) : Trained sklearn OneHotEncoder, only used if 
+            training=False.
+        lb (sklearn.preprocessing._label.LabelBinarizer) : Trained sklearn LabelBinarizer, only used if training=False.
+        
+    Returns:
+        metrics_df: Different metrics for the slice of data.
+    """
+
+    metrics = []
+
+    for feature in categorical_features:
+        unique_values = X[feature].unique()
+        for value in unique_values:
+            X, y, encoder, lb = process_data(X.loc[X[feature]==value], categorical_features=categorical_features, label=label, encoder=encoder, lb=lb, training=False)
+            preds = inference(model, X)
+            precision, recall, fbeta = compute_model_metrics(y, preds)
+            metrics.append((feature, value, precision, recall, fbeta))
+    
+    metrics_df = pd.DataFrame(metrics, columns=['feature', 'value', 'precision', 'recall', 'fbeta'])
+    return metrics_df
