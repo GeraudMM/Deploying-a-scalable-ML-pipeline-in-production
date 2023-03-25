@@ -65,21 +65,20 @@ def inference(model, X):
 
     return model.predict(X)
 
-def compute_metric_on_slice_of_data(model, X: pd.DataFrame, categorical_features: list[str]=[], label: str =None, encoder=None, lb=None) -> pd.DataFrame:
+def compute_metric_on_slice_of_data(model, X, categorical_features=[], label = None, encoder=None, lb=None):
     """ compute metric on slice of the data
     
     Args:
-        X : Dataframe containing the features and label. Columns in `categorical_features`
-        categorical_features: List containing the names of the categorical features (default=[])
-        label : Name of the label column in `X`. If None, then an empty array will be returned for y (default=None)
-        training : bool
-            Indicator if training mode or inference/validation mode.
+        model: Trained machine learning model.
+        X (pd.DataFrame): Dataframe containing the features and label. Columns in `categorical_features`
+        categorical_features (list[str]): List containing the names of the categorical features (default=[])
+        label (str): Name of the label column in `X`. If None, then an empty array will be returned for y (default=None)
         encoder (sklearn.preprocessing._encoders.OneHotEncoder) : Trained sklearn OneHotEncoder, only used if 
             training=False.
         lb (sklearn.preprocessing._label.LabelBinarizer) : Trained sklearn LabelBinarizer, only used if training=False.
         
     Returns:
-        metrics_df: Different metrics for the slice of data.
+        metrics_df (pd.DataFrame): Different metrics for the slice of data.
     """
 
     metrics = []
