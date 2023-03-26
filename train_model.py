@@ -65,7 +65,7 @@ with open(params['model_path'], 'wb') as file:
 slice_data_metrics = utils.compute_metric_on_slice_of_data(
     model, input_data, cat_features, label="salary", encoder=encoder, lb=lb)
 # Save to output text
-slice_data_metrics.to_csv(params['metrics_folder'] + "metrics_on_slice.csv")
+slice_data_metrics.to_csv(params['metrics_folder'] + "slice_output.csv")
 
 
 precision, recall, fbeta = utils.compute_model_metrics(y_test, preds)

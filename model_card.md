@@ -24,11 +24,11 @@ Evaluation data is a part of the data from the UCI website. for this release, it
 The current metric used to observe the results are the precision, recall and fbeta scores.
 for this release the results are the following:
 
-- precison: 0.71
+- precison: 0.72
 
-- recall: 0.64
+- recall: 0.61
 
-- fbeta: 0.67
+- fbeta: 0.66
 
 As we can see there is still room for improvement.
 
