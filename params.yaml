@@ -1,7 +1,9 @@
-input_data_path: data/census.csv
-model_path: model/latest_model.pkl
-logfile_path: logs.log
-metrics_folder: metrics/
+# Hyperparameter to run the pipeline
+
+input_data_path: "data/census.csv"
+model_path: "model/latest_model.pkl"
+logfile_path: "logs.log"
+metrics_folder: "metrics/"
 
 train_model:
     test_size: 0.2

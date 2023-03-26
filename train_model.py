@@ -8,7 +8,7 @@ import yaml
 import pickle
 
 
-with open('params.yaml') as f:
+with open('params.yaml', encoding='utf-8') as f:
     params = yaml.safe_load(f)
 
 
@@ -60,7 +60,7 @@ model_config = {
 
 logging.info(f"save the model to {params['model_path']}")
 with open(params['model_path'], 'wb') as file:
-    pickle.dump(model_config, file)
+    pickle.dump(model_config, file, protocol=pickle.HIGHEST_PROTOCOL)
 
 slice_data_metrics = utils.compute_metric_on_slice_of_data(
     model, input_data, cat_features, label="salary", encoder=encoder, lb=lb)
