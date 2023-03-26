@@ -4,13 +4,12 @@ import ml.model as utils
 from sklearn.model_selection import train_test_split
 import logging
 import pandas as pd
-import numpy as np
 import yaml
 import pickle
 
 
 with open('params.yaml') as f:
-        params = yaml.safe_load(f)
+    params = yaml.safe_load(f)
 
 
 logging.basicConfig(
@@ -45,8 +44,8 @@ X_train, y_train, encoder, lb = process_data(
 
 # Proces the test data with the process_data function.
 X_test, y_test, encoder, lb = process_data(
-        test, categorical_features=cat_features, label="salary", encoder=encoder, lb=lb, training=False
-    )
+    test, categorical_features=cat_features, label="salary", encoder=encoder, lb=lb, training=False
+)
 # Train and save a model.
 logging.info("Train the model and predict")
 model = utils.train_model(X_train, y_train)
@@ -63,7 +62,8 @@ logging.info(f"save the model to {params['model_path']}")
 with open(params['model_path'], 'wb') as file:
     pickle.dump(model_config, file)
 
-slice_data_metrics = utils.compute_metric_on_slice_of_data(model, input_data, cat_features, label = "salary", encoder=encoder, lb=lb)
+slice_data_metrics = utils.compute_metric_on_slice_of_data(
+    model, input_data, cat_features, label="salary", encoder=encoder, lb=lb)
 # Save to output text
 slice_data_metrics.to_csv(params['metrics_folder'] + "metrics_on_slice.csv")
 
