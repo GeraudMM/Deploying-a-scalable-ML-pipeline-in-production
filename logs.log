@@ -1,0 +1,7 @@
+root - INFO - Loading data: data/census.csv
+root - INFO - Loading done
+root - INFO - Processing the data
+root - INFO - Train the model and predict
+root - INFO - save the model to model/latest_model.pkl
+root - INFO - Precision: 0.73; Recall: 0.62; Fbeta: 0.67
+root - INFO - Training pipeline finished !

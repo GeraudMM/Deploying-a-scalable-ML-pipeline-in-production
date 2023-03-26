@@ -1,5 +1,6 @@
 input_data_path: data/census.csv
 model_path: model/latest_model.pkl
+logfile_path: logs.log
 metrics_folder: metrics/
 
 train_model:
